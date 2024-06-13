@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
+            Download = new Button();
+            UrlTextBox = new TextBox();
             label1 = new Label();
             progressBar1 = new ProgressBar();
             SuspendLayout();
             // 
-            // button1
+            // Download
             // 
-            button1.Anchor = AnchorStyles.Top;
-            button1.Location = new Point(103, 145);
-            button1.MaximumSize = new Size(150, 50);
-            button1.MinimumSize = new Size(150, 50);
-            button1.Name = "button1";
-            button1.Size = new Size(150, 50);
-            button1.TabIndex = 0;
-            button1.Text = "Download";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            Download.Anchor = AnchorStyles.Top;
+            Download.Location = new Point(103, 145);
+            Download.MaximumSize = new Size(150, 50);
+            Download.MinimumSize = new Size(150, 50);
+            Download.Name = "Download";
+            Download.Size = new Size(150, 50);
+            Download.TabIndex = 0;
+            Download.Text = "Download";
+            Download.UseVisualStyleBackColor = true;
+            Download.Click += button1_Click;
             // 
-            // textBox1
+            // UrlTextBox
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            textBox1.Location = new Point(47, 83);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(259, 23);
-            textBox1.TabIndex = 1;
-            textBox1.TextChanged += textBox1_TextChanged;
+            UrlTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            UrlTextBox.Location = new Point(47, 83);
+            UrlTextBox.Name = "UrlTextBox";
+            UrlTextBox.Size = new Size(259, 23);
+            UrlTextBox.TabIndex = 1;
+            UrlTextBox.TextChanged += textBox1_TextChanged;
             // 
             // label1
             // 
@@ -83,9 +83,11 @@
             ClientSize = new Size(352, 304);
             Controls.Add(progressBar1);
             Controls.Add(label1);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(UrlTextBox);
+            Controls.Add(Download);
             MaximizeBox = false;
+            MaximumSize = new Size(368, 343);
+            MinimumSize = new Size(368, 343);
             Name = "PytubeGUI";
             Text = "PytubeGUI";
             Load += Form1_Load;
@@ -95,8 +97,8 @@
 
         #endregion
 
-        private Button button1;
-        private TextBox textBox1;
+        private Button Download;
+        private TextBox UrlTextBox;
         private Label label1;
         private ProgressBar progressBar1;
     }

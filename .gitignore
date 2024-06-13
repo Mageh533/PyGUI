@@ -98,6 +98,13 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# Stream files
+*.mp4
+*.mkv
+*.avi
+*.webm
+*.mp3
+
 # Chutzpah Test files
 _Chutzpah*
 

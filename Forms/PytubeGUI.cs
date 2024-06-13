@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace PytubeGUI
 {
     public partial class PytubeGUI : Form
@@ -16,12 +18,32 @@ namespace PytubeGUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Downloading: " + url);
+            try
+            {
+                // Download the video using the downloader.py script
+                var process = new Process()
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "python",
+                        Arguments = $"../downloader.py {url} ./",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+                MessageBox.Show("Video downloaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            url = textBox1.Text;
+            url = UrlTextBox.Text;
         }
     }
 }
