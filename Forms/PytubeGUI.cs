@@ -25,8 +25,8 @@ namespace PytubeGUI
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = "python",
-                        Arguments = $"../downloader.py {url} ./",
+                        FileName = "python3",
+                        Arguments = $"./downloader.py {url} ./",
                         RedirectStandardOutput = true,
                         UseShellExecute = false,
                         CreateNoWindow = true

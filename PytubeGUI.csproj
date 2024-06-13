@@ -8,4 +8,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <ItemGroup>
+		  <CopyItems Include="$(ProjectDir)pytube\pytube\*.*" />
+		  <CopyItems2 Include="$(ProjectDir)pytube\pytube\contrib\*.*" />
+	  </ItemGroup>
+	  <Copy SourceFiles="$(ProjectDir)downloader.py" DestinationFiles="$(ProAjectDir)$(OutDir)downloader.py" />
+	  <Copy SourceFiles="@(CopyItems)" DestinationFolder="$(ProAjectDir)$(OutDir)pytube" />
+	  <Copy SourceFiles="@(CopyItems2)" DestinationFolder="$(ProAjectDir)$(OutDir)pytube\contrib" />
+  </Target>
+
 </Project>

@@ -1,5 +1,6 @@
-from pytube import YouTube
 import sys
+sys.path.insert(1, './pytube')
+from pytube import YouTube
 
 first = str(sys.argv[1])
 second = str(sys.argv[2])
