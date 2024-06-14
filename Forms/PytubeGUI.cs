@@ -5,6 +5,7 @@ namespace PytubeGUI
     public partial class PytubeGUI : Form
     {
         private string url = "";
+        private string fileExtension = "";
         private string savePath = "./";
 
         public PytubeGUI()
@@ -44,7 +45,7 @@ namespace PytubeGUI
                     {
                         FileName = "downloader.exe",
                         Arguments = $"{url} {savePath}",
-                        RedirectStandardOutput = true,
+                        RedirectStandardOutput = false,
                         UseShellExecute = false,
                         CreateNoWindow = true
                     }
@@ -57,6 +58,11 @@ namespace PytubeGUI
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FileExtensionCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fileExtension = FileExtensionCombo.SelectedItem as string ?? ".mp4"; // Could be null, default to .mp4
         }
     }
 }

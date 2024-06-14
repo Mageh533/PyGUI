@@ -32,25 +32,28 @@
             Download = new Button();
             UrlTextBox = new TextBox();
             label1 = new Label();
+            FileExtensionCombo = new ComboBox();
             SuspendLayout();
             // 
             // Download
             // 
             Download.Anchor = AnchorStyles.Top;
-            Download.Location = new Point(93, 156);
+            Download.BackColor = Color.DimGray;
+            Download.ForeColor = Color.White;
+            Download.Location = new Point(418, 86);
             Download.MaximumSize = new Size(150, 50);
             Download.MinimumSize = new Size(150, 50);
             Download.Name = "Download";
             Download.Size = new Size(150, 50);
             Download.TabIndex = 0;
             Download.Text = "Download";
-            Download.UseVisualStyleBackColor = true;
+            Download.UseVisualStyleBackColor = false;
             Download.Click += Download_Click;
             // 
             // UrlTextBox
             // 
             UrlTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            UrlTextBox.Location = new Point(47, 104);
+            UrlTextBox.Location = new Point(50, 101);
             UrlTextBox.Name = "UrlTextBox";
             UrlTextBox.Size = new Size(259, 23);
             UrlTextBox.TabIndex = 1;
@@ -60,24 +63,37 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             label1.AutoSize = true;
-            label1.Location = new Point(47, 86);
+            label1.Location = new Point(50, 83);
             label1.Name = "label1";
             label1.Size = new Size(78, 15);
             label1.TabIndex = 2;
             label1.Text = "Youtube URL:";
             // 
+            // FileExtensionCombo
+            // 
+            FileExtensionCombo.FormattingEnabled = true;
+            FileExtensionCombo.Items.AddRange(new object[] { ".mp4", ".mov", ".m4a", ".avi", "", ".mp3", ".wav", ".ogg", ".flac" });
+            FileExtensionCombo.Location = new Point(327, 101);
+            FileExtensionCombo.Name = "FileExtensionCombo";
+            FileExtensionCombo.Size = new Size(57, 23);
+            FileExtensionCombo.TabIndex = 3;
+            FileExtensionCombo.Text = ".mp4";
+            FileExtensionCombo.SelectedIndexChanged += FileExtensionCombo_SelectedIndexChanged;
+            // 
             // PytubeGUI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(352, 304);
+            BackColor = Color.FromArgb(38, 38, 38);
+            ClientSize = new Size(607, 275);
+            Controls.Add(FileExtensionCombo);
             Controls.Add(label1);
             Controls.Add(UrlTextBox);
             Controls.Add(Download);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MaximumSize = new Size(368, 343);
-            MinimumSize = new Size(368, 343);
             Name = "PytubeGUI";
             Text = "PytubeGUI";
             Load += Form1_Load;
@@ -90,5 +106,6 @@
         private Button Download;
         private TextBox UrlTextBox;
         private Label label1;
+        private ComboBox FileExtensionCombo;
     }
 }
