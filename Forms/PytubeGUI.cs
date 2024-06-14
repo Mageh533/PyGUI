@@ -5,6 +5,7 @@ namespace PytubeGUI
     public partial class PytubeGUI : Form
     {
         private string url = "";
+        private string savePath = "./";
 
         public PytubeGUI()
         {
@@ -16,7 +17,23 @@ namespace PytubeGUI
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Download_Click(object sender, EventArgs e)
+        {
+            // Open a folder browser dialog to select the download location
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                savePath = folderBrowserDialog.SelectedPath;
+                Download_Video();
+            }
+        }
+
+        private void UrlTextBox_TextChanged(object sender, EventArgs e)
+        {
+            url = UrlTextBox.Text;
+        }
+
+        private void Download_Video()
         {
             try
             {
@@ -26,7 +43,7 @@ namespace PytubeGUI
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "downloader.exe",
-                        Arguments = $"{url} ./",
+                        Arguments = $"{url} {savePath}",
                         RedirectStandardOutput = true,
                         UseShellExecute = false,
                         CreateNoWindow = true
@@ -35,15 +52,11 @@ namespace PytubeGUI
                 process.Start();
                 process.WaitForExit();
                 MessageBox.Show("Video downloaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            url = UrlTextBox.Text;
         }
     }
 }
