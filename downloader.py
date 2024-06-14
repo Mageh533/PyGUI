@@ -1,5 +1,4 @@
 import sys
-sys.path.insert(1, './pytube')
 from pytube import YouTube
 
 first = str(sys.argv[1])

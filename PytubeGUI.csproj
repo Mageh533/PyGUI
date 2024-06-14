@@ -9,13 +9,31 @@
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <ItemGroup>
-		  <CopyItems Include="$(ProjectDir)pytube\pytube\*.*" />
-		  <CopyItems2 Include="$(ProjectDir)pytube\pytube\contrib\*.*" />
-	  </ItemGroup>
-	  <Copy SourceFiles="$(ProjectDir)downloader.py" DestinationFiles="$(ProAjectDir)$(OutDir)downloader.py" />
-	  <Copy SourceFiles="@(CopyItems)" DestinationFolder="$(ProAjectDir)$(OutDir)pytube" />
-	  <Copy SourceFiles="@(CopyItems2)" DestinationFolder="$(ProAjectDir)$(OutDir)pytube\contrib" />
+    <Exec Command="cd $(ProjectDir)$(OutDir)&#xD;&#xA;pyinstaller downloader.py -y" />
+    <Delete Files="$(ProjectDir)$(OutDir)downloader.py" />
+    <Delete Files="$(ProjectDir)$(OutDir)downloader.spec" />
+    <RemoveDir Directories="$(ProjectDir)$(OutDir)build" />
+    <RemoveDir Directories="$(ProjectDir)$(OutDir)pytube" />
+    <Move SourceFiles="$(ProjectDir)$(OutDir)dist\downloader\downloader.exe" DestinationFolder="$(ProjectDir)$(OutDir)" />
+	 <ItemGroup>
+		 <MoveItems Include="$(ProjectDir)$(OutDir)dist\downloader\_internal\*.*" />
+	 </ItemGroup>
+    <Move SourceFiles="@(MoveItems)" DestinationFolder="$(ProjectDir)$(OutDir)_internal" />
+	<RemoveDir Directories="$(ProjectDir)$(OutDir)dist" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <ItemGroup>
+      <CopyItems Include="$(ProjectDir)pytube\pytube\*.*" />
+      <CopyItems2 Include="$(ProjectDir)pytube\pytube\contrib\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="$(ProjectDir)downloader.py" DestinationFiles="$(ProjectDir)$(OutDir)downloader.py" />
+    <Copy SourceFiles="@(CopyItems)" DestinationFolder="$(ProjectDir)$(OutDir)pytube" />
+    <Copy SourceFiles="@(CopyItems2)" DestinationFolder="$(ProjectDir)$(OutDir)pytube\contrib" />
+  </Target>
+
+  <Target Name="SpicNSpan" AfterTargets="Clean">
+    <RemoveDir Directories="$(OutDir)"/>
   </Target>
 
 </Project>
