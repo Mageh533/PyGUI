@@ -1,3 +1,9 @@
+<div align="center">
+  <p>
+    <img src="images/pytubelogotext.png" width="512" height="251" alt="pygui logo" />
+  </p>
+</div>
+
 # PyGUI
 
 A PyGUI is a dot net based GUI application that uses tools such as Pytube and FFmpeg to download and convert videos from YouTube. The purpose of this is to provide a simple and easy to use GUI for downloading and converting videos from YouTube all within a single application and without having to rely on external sites or cmd based tools.
