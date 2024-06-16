@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PytubeGUI));
             Download = new Button();
             UrlTextBox = new TextBox();
-            label1 = new Label();
             FileExtensionCombo = new ComboBox();
+            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // Download
@@ -40,7 +40,7 @@
             Download.Anchor = AnchorStyles.Top;
             Download.BackColor = Color.DimGray;
             Download.ForeColor = Color.White;
-            Download.Location = new Point(418, 86);
+            Download.Location = new Point(50, 213);
             Download.MaximumSize = new Size(150, 50);
             Download.MinimumSize = new Size(150, 50);
             Download.Name = "Download";
@@ -53,32 +53,33 @@
             // UrlTextBox
             // 
             UrlTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            UrlTextBox.Location = new Point(50, 101);
+            UrlTextBox.Location = new Point(50, 25);
             UrlTextBox.Name = "UrlTextBox";
-            UrlTextBox.Size = new Size(259, 23);
+            UrlTextBox.PlaceholderText = "YouTube URL";
+            UrlTextBox.Size = new Size(508, 23);
             UrlTextBox.TabIndex = 1;
             UrlTextBox.TextChanged += UrlTextBox_TextChanged;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label1.AutoSize = true;
-            label1.Location = new Point(50, 83);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Youtube URL:";
             // 
             // FileExtensionCombo
             // 
             FileExtensionCombo.FormattingEnabled = true;
             FileExtensionCombo.Items.AddRange(new object[] { ".mp4", ".mov", ".m4a", ".avi", "", ".mp3", ".wav", ".ogg", ".flac" });
-            FileExtensionCombo.Location = new Point(327, 101);
+            FileExtensionCombo.Location = new Point(481, 73);
             FileExtensionCombo.Name = "FileExtensionCombo";
-            FileExtensionCombo.Size = new Size(57, 23);
+            FileExtensionCombo.Size = new Size(77, 23);
             FileExtensionCombo.TabIndex = 3;
-            FileExtensionCombo.Text = ".mp4";
+            FileExtensionCombo.Text = "Format";
             FileExtensionCombo.SelectedIndexChanged += FileExtensionCombo_SelectedIndexChanged;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "720p", "1080p", "4k" });
+            comboBox1.Location = new Point(50, 73);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(425, 23);
+            comboBox1.TabIndex = 4;
+            comboBox1.Text = "Resolution";
             // 
             // PytubeGUI
             // 
@@ -86,8 +87,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 38, 38);
             ClientSize = new Size(607, 275);
+            Controls.Add(comboBox1);
             Controls.Add(FileExtensionCombo);
-            Controls.Add(label1);
             Controls.Add(UrlTextBox);
             Controls.Add(Download);
             ForeColor = Color.White;
@@ -95,7 +96,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "PytubeGUI";
-            Text = "PytubeGUI";
+            Text = "PyGUI";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -105,7 +106,7 @@
 
         private Button Download;
         private TextBox UrlTextBox;
-        private Label label1;
         private ComboBox FileExtensionCombo;
+        private ComboBox comboBox1;
     }
 }
