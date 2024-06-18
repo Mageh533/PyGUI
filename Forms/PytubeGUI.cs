@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace PytubeGUI
 {
@@ -6,7 +7,10 @@ namespace PytubeGUI
     {
         private string url = "";
         private string fileExtension = "";
+        private string resolution = "";
         private string savePath = "./";
+
+        private Dictionary<string, string> video_details = new Dictionary<string, string>();
 
         public PytubeGUI()
         {
@@ -32,19 +36,36 @@ namespace PytubeGUI
         private void UrlTextBox_TextChanged(object sender, EventArgs e)
         {
             url = UrlTextBox.Text;
+            Get_Video_Details();
+            ResolutionCombo.Items.Clear();
+            if (video_details.ContainsKey("resolutions"))
+            {
+                string formatted = Regex.Replace(video_details.GetValueOrDefault("resolutions"), "\\[|\\]|'| ", ""); // Would you believe me if I told you that this is the first time I learned regex
+                ResolutionCombo.Items.AddRange(formatted.Split(","));
+            }
         }
 
+        private void FileExtensionCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fileExtension = FileExtensionCombo.SelectedItem as string ?? ".mp4";
+        }
+
+        private void ResolutionCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            resolution = ResolutionCombo.SelectedItem as string ?? "";
+        }
+
+        // Methods that use the downloader py
         private void Download_Video()
         {
             try
             {
-                // Download the video using the downloader.py script
                 var process = new Process()
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "downloader.exe",
-                        Arguments = $"{url} {savePath}",
+                        Arguments = $"0 {url} {resolution} {savePath}", // Mode 0 downloads the video
                         RedirectStandardOutput = false,
                         UseShellExecute = false,
                         CreateNoWindow = true
@@ -60,9 +81,40 @@ namespace PytubeGUI
             }
         }
 
-        private void FileExtensionCombo_SelectedIndexChanged(object sender, EventArgs e)
+        private void Get_Video_Details()
         {
-            fileExtension = FileExtensionCombo.SelectedItem as string ?? ".mp4"; // Could be null, default to .mp4
+            try
+            {
+                var process = new Process()
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "downloader.exe",
+                        Arguments = $"1 {url}", // Mode 1 gets the video details
+                        RedirectStandardOutput = false,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                process.StartInfo.RedirectStandardOutput = true;
+                process.Start();
+                process.WaitForExit();
+                var outputString = process.StandardOutput.ReadToEnd();
+
+                video_details.Clear();
+
+                // Split the output and turn it into a dictionary
+                string[] eachLine = outputString.Split(";");
+                foreach (string line in eachLine)
+                {
+                    string[] keyValue = line.Split("=");
+                    video_details.Add(keyValue[0], keyValue[1]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

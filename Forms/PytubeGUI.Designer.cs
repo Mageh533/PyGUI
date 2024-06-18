@@ -32,7 +32,7 @@
             Download = new Button();
             UrlTextBox = new TextBox();
             FileExtensionCombo = new ComboBox();
-            comboBox1 = new ComboBox();
+            ResolutionCombo = new ComboBox();
             SuspendLayout();
             // 
             // Download
@@ -71,15 +71,15 @@
             FileExtensionCombo.Text = "Format";
             FileExtensionCombo.SelectedIndexChanged += FileExtensionCombo_SelectedIndexChanged;
             // 
-            // comboBox1
+            // ResolutionCombo
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "720p", "1080p", "4k" });
-            comboBox1.Location = new Point(50, 73);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(425, 23);
-            comboBox1.TabIndex = 4;
-            comboBox1.Text = "Resolution";
+            ResolutionCombo.FormattingEnabled = true;
+            ResolutionCombo.Location = new Point(50, 73);
+            ResolutionCombo.Name = "ResolutionCombo";
+            ResolutionCombo.Size = new Size(425, 23);
+            ResolutionCombo.TabIndex = 4;
+            ResolutionCombo.Text = "Resolution";
+            ResolutionCombo.SelectedIndexChanged += ResolutionCombo_SelectedIndexChanged;
             // 
             // PytubeGUI
             // 
@@ -87,7 +87,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(38, 38, 38);
             ClientSize = new Size(607, 275);
-            Controls.Add(comboBox1);
+            Controls.Add(ResolutionCombo);
             Controls.Add(FileExtensionCombo);
             Controls.Add(UrlTextBox);
             Controls.Add(Download);
@@ -107,6 +107,6 @@
         private Button Download;
         private TextBox UrlTextBox;
         private ComboBox FileExtensionCombo;
-        private ComboBox comboBox1;
+        private ComboBox ResolutionCombo;
     }
 }

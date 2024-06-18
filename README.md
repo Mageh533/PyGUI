@@ -17,7 +17,7 @@ A PyGUI is a dot net based GUI application that uses tools such as Pytube and FF
 
 ## Installation
 
-To install the PyGUI, simply download the latest release from the releases page and run PyGUI.exe.
+To install the PyGUI, simply download the latest release from the [releases page](https://github.com/Mageh533/PyGUI/releases) and run PyGUI.exe.
 
 ## Building
 
