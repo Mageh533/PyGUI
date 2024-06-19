@@ -64,7 +64,7 @@ namespace PytubeGUI
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = "downloader.exe",
+                        FileName = "Tools/downloader.exe",
                         Arguments = $"0 {url} {resolution} {savePath}", // Mode 0 downloads the video
                         RedirectStandardOutput = false,
                         UseShellExecute = false,
@@ -89,7 +89,7 @@ namespace PytubeGUI
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = "downloader.exe",
+                        FileName = "Tools/downloader.exe",
                         Arguments = $"1 {url}", // Mode 1 gets the video details
                         RedirectStandardOutput = false,
                         UseShellExecute = false,
