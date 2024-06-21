@@ -40,12 +40,11 @@ namespace PyGUI.Scripts
                     {
                         FileName = "Tools/downloader.exe",
                         Arguments = $"1 {url}", // Mode 1 gets the video details
-                        RedirectStandardOutput = false,
+                        RedirectStandardOutput = true,
                         UseShellExecute = false,
                         CreateNoWindow = true
                     }
                 };
-                process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
                 process.WaitForExit();
                 var outputString = process.StandardOutput.ReadToEnd();
@@ -59,6 +58,58 @@ namespace PyGUI.Scripts
                     string[] keyValue = line.Split("=");
                     video_details.Add(keyValue[0], keyValue[1]);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Methods that use the ffmpeg
+        public static void Join_Audio_Video_Stream(string audioPath, string videoPath, string savePath)
+        {
+            try
+            {
+                var process = new Process()
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "Tools/ffmpeg.exe",
+                        Arguments = $"-i {audioPath} -i {videoPath} -c:v copy -c:a aac {savePath}",
+                        RedirectStandardOutput = false,
+                        UseShellExecute = false,
+                        CreateNoWindow = false
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+                MessageBox.Show("Audio and video streams joined successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void Convert_Video(string videoPath, string savePath)
+        {
+            try
+            {
+                var process = new Process()
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "Tools/ffmpeg.exe",
+                        Arguments = $"-i {videoPath} {savePath}",
+                        RedirectStandardOutput = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    }
+                };
+                process.Start();
+                process.WaitForExit();
+
+                MessageBox.Show("Video converted successfully!" + process.StandardOutput.ReadToEnd(), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

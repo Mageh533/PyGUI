@@ -31,6 +31,19 @@ namespace PytubeGUI
             {
                 savePath = folderBrowserDialog.SelectedPath;
                 ScriptMethods.Download_Video(url, resolution, savePath);
+                // Check if we need to join the audio and video streams
+                if(File.Exists(savePath + "/AUDIO-" + video_details.GetValueOrDefault("title") + ".mp4"))
+                {
+                    ScriptMethods.Join_Audio_Video_Stream(savePath + "/AUDIO-" + video_details.GetValueOrDefault("title") + ".mp4",
+                        savePath + "/" + video_details.GetValueOrDefault("title") + ".mp4",
+                        savePath + "/Joined-" + video_details.GetValueOrDefault("title") + ".mp4");
+                }
+                // Then convert the video to the format selected
+                if(fileExtension != ".mp4")
+                {
+                    ScriptMethods.Convert_Video(savePath + "/Joined-" + video_details.GetValueOrDefault("title") + ".mp4",
+                        savePath + "/Converted-" + video_details.GetValueOrDefault("title") + fileExtension);
+                }
             }
         }
 
