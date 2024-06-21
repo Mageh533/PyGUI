@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using PyGUI.Scripts;
 
 namespace PytubeGUI
 {
@@ -29,14 +30,14 @@ namespace PytubeGUI
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 savePath = folderBrowserDialog.SelectedPath;
-                Download_Video();
+                ScriptMethods.Download_Video(url, resolution, savePath);
             }
         }
 
         private void UrlTextBox_TextChanged(object sender, EventArgs e)
         {
             url = UrlTextBox.Text;
-            Get_Video_Details();
+            ScriptMethods.Get_Video_Details(url, video_details);
             ResolutionCombo.Items.Clear();
             if (video_details.ContainsKey("resolutions"))
             {
@@ -53,68 +54,6 @@ namespace PytubeGUI
         private void ResolutionCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             resolution = ResolutionCombo.SelectedItem as string ?? "";
-        }
-
-        // Methods that use the downloader py
-        private void Download_Video()
-        {
-            try
-            {
-                var process = new Process()
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = "Tools/downloader.exe",
-                        Arguments = $"0 {url} {resolution} {savePath}", // Mode 0 downloads the video
-                        RedirectStandardOutput = false,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    }
-                };
-                process.Start();
-                process.WaitForExit();
-                MessageBox.Show("Video downloaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void Get_Video_Details()
-        {
-            try
-            {
-                var process = new Process()
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = "Tools/downloader.exe",
-                        Arguments = $"1 {url}", // Mode 1 gets the video details
-                        RedirectStandardOutput = false,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    }
-                };
-                process.StartInfo.RedirectStandardOutput = true;
-                process.Start();
-                process.WaitForExit();
-                var outputString = process.StandardOutput.ReadToEnd();
-
-                video_details.Clear();
-
-                // Split the output and turn it into a dictionary
-                string[] eachLine = outputString.Split(";");
-                foreach (string line in eachLine)
-                {
-                    string[] keyValue = line.Split("=");
-                    video_details.Add(keyValue[0], keyValue[1]);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }
